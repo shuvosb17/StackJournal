@@ -3,12 +3,14 @@ package domain
 import "time"
 
 type LearningPathStep struct {
-	ID          string  `json:"id"`
-	Title       string  `json:"title"`
-	Description *string `json:"description,omitempty"`
-	SortOrder   int     `json:"sortOrder"`
-	ArticleID   *string `json:"articleId,omitempty"`
-	ArticleSlug *string `json:"articleSlug,omitempty"`
+	ID           string  `json:"id"`
+	Title        string  `json:"title"`
+	Description  *string `json:"description,omitempty"`
+	ContentHTML  *string `json:"contentHtml,omitempty"`
+	CategorySlug *string `json:"categorySlug,omitempty"`
+	SortOrder    int     `json:"sortOrder"`
+	ArticleID    *string `json:"articleId,omitempty"`
+	ArticleSlug  *string `json:"articleSlug,omitempty"`
 	ArticleTitle *string `json:"articleTitle,omitempty"`
 }
 

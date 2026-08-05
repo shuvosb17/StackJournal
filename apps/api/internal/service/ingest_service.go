@@ -189,11 +189,24 @@ func (s *IngestService) persistItem(
 	categoryID *string,
 	item domain.IngestItem,
 ) (bool, error) {
+	return s.persistItemWithUpgrade(ctx, sourceID, categoryID, item, false)
+}
+
+func (s *IngestService) persistItemWithUpgrade(
+	ctx context.Context,
+	sourceID string,
+	categoryID *string,
+	item domain.IngestItem,
+	upgradeStubs bool,
+) (bool, error) {
 	exists, err := s.ingest.ArticleExists(ctx, item.CanonicalURL)
 	if err != nil {
 		return false, err
 	}
 	if exists {
+		if upgradeStubs && ingest.HasSubstantialContent(item.ContentHTML) {
+			return s.ingest.UpdateArticleContent(ctx, item.CanonicalURL, item)
+		}
 		return false, nil
 	}
 
@@ -237,12 +250,12 @@ func (s *IngestService) ingestHackerNews(ctx context.Context) domain.IngestResul
 			result.ArticlesSkipped++
 			continue
 		}
-		inserted, err := s.persistItem(ctx, source.ID, categoryID, item)
+		changed, err := s.persistItemWithUpgrade(ctx, source.ID, categoryID, item, true)
 		if err != nil {
 			result.Error = err
 			return result
 		}
-		if inserted {
+		if changed {
 			result.ArticlesNew++
 		} else {
 			result.ArticlesSkipped++

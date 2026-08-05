@@ -101,6 +101,8 @@ export type LearningPathStep = {
   id: string;
   title: string;
   description?: string;
+  contentHtml?: string;
+  categorySlug?: string;
   sortOrder: number;
   articleId?: string;
   articleSlug?: string;

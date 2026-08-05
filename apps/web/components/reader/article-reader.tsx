@@ -14,6 +14,7 @@ import { useScrollProgress } from "@/hooks/use-reading-progress";
 import { useReadingSettings } from "@/hooks/use-reading-settings";
 import type { Article } from "@/lib/api/types";
 import type { TocItem } from "@/lib/reader/types";
+import { isStubArticleContent } from "@/lib/reader/content";
 
 import "highlight.js/styles/github-dark.min.css";
 
@@ -31,6 +32,7 @@ export function ArticleReader({ article, contentHtml }: ArticleReaderProps) {
   const contentRef = useRef<HTMLElement>(null);
 
   const progress = useScrollProgress(article.slug, contentRef);
+  const isStubContent = isStubArticleContent(contentHtml);
 
   useReaderShortcuts({
     onToggleSettings: () => setSettingsOpen((v) => !v),
@@ -149,6 +151,20 @@ export function ArticleReader({ article, contentHtml }: ArticleReaderProps) {
           </header>
 
           <div className="mx-auto max-w-[var(--reader-width)] pb-24">
+            {isStubContent && article.canonicalUrl && (
+              <div className="mb-8 rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 font-sans text-[14px] leading-relaxed text-[var(--reader-fg)]">
+                Full article text could not be loaded inline.{" "}
+                <a
+                  href={article.canonicalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium underline underline-offset-2"
+                >
+                  Read the original article
+                </a>{" "}
+                or run ingest again to retry fetching content.
+              </div>
+            )}
             <ArticleContent
               html={contentHtml}
               onTocChange={handleTocChange}

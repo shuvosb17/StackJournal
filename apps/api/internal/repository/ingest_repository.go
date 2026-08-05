@@ -110,6 +110,38 @@ func (r *IngestRepository) InsertArticle(
 	return inserted, nil
 }
 
+func (r *IngestRepository) UpdateArticleContent(
+	ctx context.Context,
+	canonicalURL string,
+	item domain.IngestItem,
+) (bool, error) {
+	tag, err := r.pool.Exec(ctx, `
+		UPDATE articles
+		SET
+			content_html = $2,
+			content_text = $3,
+			excerpt = COALESCE(NULLIF($4, ''), excerpt),
+			reading_time_minutes = $5,
+			fetched_at = NOW()
+		WHERE canonical_url = $1
+		  AND (
+		    content_html IS NULL
+		    OR content_html LIKE '%Discussed on Hacker News%'
+		    OR length(content_html) < 200
+		  )
+	`,
+		canonicalURL,
+		nullIfEmpty(item.ContentHTML),
+		nullIfEmpty(item.ContentText),
+		nullIfEmpty(item.Excerpt),
+		item.ReadingTimeMinutes,
+	)
+	if err != nil {
+		return false, fmt.Errorf("update article content: %w", err)
+	}
+	return tag.RowsAffected() > 0, nil
+}
+
 func nullIfEmpty(s string) *string {
 	if s == "" {
 		return nil

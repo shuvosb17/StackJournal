@@ -55,8 +55,8 @@ func (r *LearningRepository) GetPathBySlug(ctx context.Context, slug string) (*d
 
 	rows, err := r.pool.Query(ctx, `
 		SELECT
-			lps.id, lps.title, lps.description, lps.sort_order,
-			lps.article_id, a.slug, a.title
+			lps.id, lps.title, lps.description, lps.content_html, lps.category_slug,
+			lps.sort_order, lps.article_id, a.slug, a.title
 		FROM learning_path_steps lps
 		LEFT JOIN articles a ON a.id = lps.article_id
 		WHERE lps.path_id = $1
@@ -70,8 +70,8 @@ func (r *LearningRepository) GetPathBySlug(ctx context.Context, slug string) (*d
 	for rows.Next() {
 		var s domain.LearningPathStep
 		if err := rows.Scan(
-			&s.ID, &s.Title, &s.Description, &s.SortOrder,
-			&s.ArticleID, &s.ArticleSlug, &s.ArticleTitle,
+			&s.ID, &s.Title, &s.Description, &s.ContentHTML, &s.CategorySlug,
+			&s.SortOrder, &s.ArticleID, &s.ArticleSlug, &s.ArticleTitle,
 		); err != nil {
 			return nil, err
 		}

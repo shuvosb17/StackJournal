@@ -98,7 +98,12 @@ func (c *HNClient) fetchItem(ctx context.Context, id int) (*domain.IngestItem, e
 	contentHTML := ""
 	if hn.Text != "" {
 		contentHTML = SanitizeHTML("<p>" + hn.Text + "</p>")
-	} else {
+	} else if hn.URL != "" && !strings.Contains(canonical, "news.ycombinator.com") {
+		if fetched, err := FetchArticleContent(ctx, hn.URL); err == nil {
+			contentHTML = fetched
+		}
+	}
+	if contentHTML == "" {
 		contentHTML = fmt.Sprintf(
 			`<p>Discussed on Hacker News with score %d. <a href="%s" rel="noopener noreferrer">Read discussion</a>.</p>`,
 			hn.Score,
