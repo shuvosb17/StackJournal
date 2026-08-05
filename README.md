@@ -60,7 +60,9 @@ Sources: Go Blog, AWS, Cloudflare, Stripe, Netflix, Kubernetes, HN (engineering-
 
 ## Deploy
 
+See **[DEPLOY.md](./DEPLOY.md)** for the full guide (Neon → Render → Vercel → GitHub Actions).
+
 - **Frontend** → Vercel (`apps/web`)
-- **API** → Fly.io / Railway / Render (`apps/api`)
+- **API** → Render (`apps/api`)
 - **Database** → Neon Postgres
 - **Ingest** → GitHub Actions cron + `DATABASE_URL` secret
