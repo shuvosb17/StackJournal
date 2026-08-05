@@ -41,13 +41,24 @@ export function ArticleReader({ article, contentHtml }: ArticleReaderProps) {
     setToc(items);
   }, []);
 
-  const handleNavigate = useCallback((id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+  const handleNavigate = useCallback(
+    (id: string) => {
+      const root = contentRef.current;
+      if (!root) return;
+
+      const el = root.querySelector<HTMLElement>(
+        `h2#${CSS.escape(id)}, h3#${CSS.escape(id)}`,
+      );
+      if (!el) return;
+
+      const headerOffset = 72;
+      const top =
+        window.scrollY + el.getBoundingClientRect().top - headerOffset;
+      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
       setActiveId(id);
-    }
-  }, []);
+    },
+    [contentRef],
+  );
 
   useEffect(() => {
     if (toc.length === 0) return;
@@ -64,8 +75,11 @@ export function ArticleReader({ article, contentHtml }: ArticleReaderProps) {
       { rootMargin: "-20% 0px -60% 0px", threshold: [0, 0.25, 0.5, 1] },
     );
 
+    const root = contentRef.current;
+    if (!root) return;
+
     toc.forEach(({ id }) => {
-      const el = document.getElementById(id);
+      const el = root.querySelector(`h2#${CSS.escape(id)}, h3#${CSS.escape(id)}`);
       if (el) observer.observe(el);
     });
 

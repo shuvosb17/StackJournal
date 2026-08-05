@@ -73,8 +73,37 @@ function enhanceCodeBlocks(root: HTMLElement) {
   });
 }
 
+function uniqueHeadingId(
+  root: HTMLElement,
+  heading: Element,
+  text: string,
+  index: number,
+  usedIds: Set<string>,
+): string {
+  const base = slugifyHeading(text, index);
+  let id = heading.id || base;
+  let suffix = 1;
+
+  while (usedIds.has(id) || idTakenByOther(root, heading, id)) {
+    id = `${base}-${suffix++}`;
+  }
+
+  usedIds.add(id);
+  return id;
+}
+
+function idTakenByOther(
+  root: HTMLElement,
+  heading: Element,
+  id: string,
+): boolean {
+  const existing = root.querySelector(`#${CSS.escape(id)}`);
+  return existing != null && existing !== heading;
+}
+
 function buildToc(root: HTMLElement): TocItem[] {
   const items: TocItem[] = [];
+  const usedIds = new Set<string>();
   const headings = root.querySelectorAll("h2, h3");
 
   headings.forEach((heading, index) => {
@@ -82,7 +111,7 @@ function buildToc(root: HTMLElement): TocItem[] {
     if (!text) return;
 
     const level = heading.tagName === "H2" ? 2 : 3;
-    const id = heading.id || slugifyHeading(text, index);
+    const id = uniqueHeadingId(root, heading, text, index, usedIds);
     heading.id = id;
     items.push({ id, text, level });
   });

@@ -78,6 +78,11 @@
   letter-spacing: 0.005em;
 }
 
+.reader-body h2,
+.reader-body h3 {
+  scroll-margin-top: 5.5rem;
+}
+
 .reader-body > * + * {
   margin-top: 1.3em;
 }
