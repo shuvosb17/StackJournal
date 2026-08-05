@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, Instrument_Serif, Manrope, Source_Serif_4 } from "next/font/google";
 
 import { AppSearchShell } from "@/components/search/app-search-shell";
+import { BRAND } from "@/lib/brand/icon-mark";
 
 import "./globals.css";
 
@@ -33,8 +34,23 @@ export const metadata: Metadata = {
     default: "StackJournal",
     template: "%s · StackJournal",
   },
-  description:
-    "A premium reading platform for software engineers. Curated articles, learning paths, and case studies.",
+  description: BRAND.description,
+  applicationName: BRAND.name,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: BRAND.shortName,
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  icons: {
+      icon: [
+        { url: "/icon", type: "image/png", sizes: "512x512" },
+        { url: "/icon.svg", type: "image/svg+xml" },
+      ],
+      apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
+    },
 };
 
 export default function RootLayout({
