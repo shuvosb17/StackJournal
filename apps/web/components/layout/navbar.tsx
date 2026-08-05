@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 
 import { useSearch } from "@/components/search/search-provider";
+import { MobileNav } from "@/components/layout/mobile-nav";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -21,13 +22,16 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-background/55 backdrop-blur-2xl">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-6">
-        <Link
-          href="/"
-          className="font-display text-[22px] tracking-tight text-foreground transition-opacity duration-300 ease-smooth hover:opacity-75"
-        >
-          StackJournal
-        </Link>
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4 sm:h-16 sm:gap-4 sm:px-6">
+        <div className="flex min-w-0 items-center gap-2">
+          <MobileNav />
+          <Link
+            href="/"
+            className="truncate font-display text-[20px] tracking-tight text-foreground transition-opacity duration-300 ease-smooth hover:opacity-75 sm:text-[22px]"
+          >
+            StackJournal
+          </Link>
+        </div>
 
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
           {navLinks.map(({ href, label }) => (

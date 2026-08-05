@@ -46,7 +46,7 @@ export default async function HomePage() {
   }).length;
 
   return (
-    <div className="mx-auto max-w-5xl px-6 pb-28 pt-2">
+    <div className="mx-auto max-w-5xl px-4 pb-24 pt-2 sm:px-6 sm:pb-28">
       <HeroSection greeting={greeting} newCount={isLive ? todayCount : 3} />
 
       <div className="mt-12 space-y-16">

@@ -1,4 +1,4 @@
-export type ReadingTheme = "light" | "dark" | "oled" | "sepia";
+export type ReadingTheme = "light" | "dark" | "warm" | "oled" | "sepia";
 export type FontSize = "sm" | "md" | "lg" | "xl";
 export type LineHeight = "compact" | "normal" | "relaxed";
 export type ReadingWidth = "narrow" | "default" | "wide";
@@ -20,7 +20,7 @@ export const DEFAULT_READING_SETTINGS: ReadingSettings = {
   fontSize: "md",
   lineHeight: "relaxed",
   width: "default",
-  theme: "dark",
+  theme: "warm",
 };
 
 export const READING_SETTINGS_KEY = "stackjournal:reading-settings";

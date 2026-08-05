@@ -118,6 +118,7 @@ export function ReadingSettingsPanel({
             value={settings.theme}
             onChange={setTheme}
             options={[
+              { value: "warm", label: "Warm" },
               { value: "light", label: "Light" },
               { value: "dark", label: "Dark" },
               { value: "oled", label: "OLED" },

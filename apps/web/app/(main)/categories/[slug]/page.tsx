@@ -30,7 +30,7 @@ export default async function CategoryPage({ params }: PageProps) {
   if (!category) notFound();
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
+    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-12">
       <p className="text-[13px] uppercase tracking-widest text-muted-foreground">
         Category
       </p>
@@ -46,6 +46,7 @@ export default async function CategoryPage({ params }: PageProps) {
           title={`Articles · ${articles.length}`}
           articles={articles}
           subtitle={isLive ? undefined : "Connect API for live articles"}
+          emptyMessage={`No articles in ${category.name} yet. New stories appear after the daily ingest — check back tomorrow or browse another category.`}
         />
       </div>
     </div>

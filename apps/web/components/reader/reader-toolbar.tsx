@@ -34,7 +34,7 @@ export function ReaderToolbar({
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-background/55 backdrop-blur-2xl">
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:px-6">
+      <div className="mx-auto flex min-h-14 max-w-6xl items-center gap-2 px-3 py-2 sm:h-14 sm:gap-3 sm:px-6">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[13px] text-muted-foreground transition-all duration-300 ease-smooth hover:bg-white/[0.05] hover:text-foreground"
@@ -44,7 +44,7 @@ export function ReaderToolbar({
         </Link>
 
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[13px] font-medium text-foreground/85">
+          <p className="line-clamp-2 text-[12px] font-medium leading-snug text-foreground/85 sm:truncate sm:text-[13px] sm:leading-normal">
             {title}
           </p>
           <div className="mt-1.5 h-0.5 overflow-hidden rounded-full bg-white/[0.08]">

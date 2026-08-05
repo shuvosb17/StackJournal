@@ -113,6 +113,11 @@ func (r *ArticleRepository) GetBySlug(ctx context.Context, slug string) (*domain
 	return &a, nil
 }
 
+const qualityArticleFilter = `
+	AND COALESCE(a.reading_time_minutes, 0) >= 2
+	AND (a.content_html IS NULL OR a.content_html NOT LIKE '%Discussed on Hacker News%')
+`
+
 func (r *ArticleRepository) Latest(ctx context.Context, limit int) ([]domain.Article, error) {
 	if limit < 1 || limit > 50 {
 		limit = 10
@@ -120,6 +125,7 @@ func (r *ArticleRepository) Latest(ctx context.Context, limit int) ([]domain.Art
 
 	query := articleSelect + `
 		WHERE a.status = 'published'
+		` + qualityArticleFilter + `
 		ORDER BY a.published_at DESC NULLS LAST, a.created_at DESC
 		LIMIT $1
 	`
@@ -141,7 +147,8 @@ func (r *ArticleRepository) Trending(ctx context.Context, limit int) ([]domain.A
 	query := articleSelect + `
 		WHERE a.status = 'published'
 		  AND a.published_at >= NOW() - INTERVAL '7 days'
-		ORDER BY a.is_featured DESC, a.published_at DESC NULLS LAST
+		` + qualityArticleFilter + `
+		ORDER BY a.is_featured DESC, a.reading_time_minutes DESC NULLS LAST, a.published_at DESC NULLS LAST
 		LIMIT $1
 	`
 

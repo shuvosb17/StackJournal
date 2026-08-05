@@ -142,15 +142,15 @@ func (s *IngestService) ingestSource(ctx context.Context, source domain.FeedSour
 		return result
 	}
 
-	categoryID, err := s.resolveCategoryID(ctx, source.Slug)
-	if err != nil {
-		result.Error = err
-		return result
-	}
-
 	items := s.parser.ItemsToArticles(feed)
 
 	for _, item := range items {
+		categoryID, err := s.resolveCategoryID(ctx, source.Slug, item.Title, item.Excerpt)
+		if err != nil {
+			result.Error = err
+			return result
+		}
+
 		inserted, err := s.persistItem(ctx, source.ID, categoryID, item)
 		if err != nil {
 			result.Error = err
@@ -171,8 +171,8 @@ func (s *IngestService) ingestSource(ctx context.Context, source domain.FeedSour
 	return result
 }
 
-func (s *IngestService) resolveCategoryID(ctx context.Context, sourceSlug string) (*string, error) {
-	categorySlug := ingest.CategorySlugForSource(sourceSlug)
+func (s *IngestService) resolveCategoryID(ctx context.Context, sourceSlug, title, excerpt string) (*string, error) {
+	categorySlug := ingest.CategorySlugForArticle(sourceSlug, title, excerpt)
 	id, err := s.sources.GetCategoryIDBySlug(ctx, categorySlug)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
@@ -232,7 +232,7 @@ func (s *IngestService) ingestHackerNews(ctx context.Context) domain.IngestResul
 		return result
 	}
 
-	categoryID, err := s.resolveCategoryID(ctx, "hackernews")
+	categoryID, err := s.resolveCategoryID(ctx, "hackernews", "", "")
 	if err != nil {
 		result.Error = err
 		return result
@@ -250,7 +250,17 @@ func (s *IngestService) ingestHackerNews(ctx context.Context) domain.IngestResul
 			result.ArticlesSkipped++
 			continue
 		}
-		changed, err := s.persistItemWithUpgrade(ctx, source.ID, categoryID, item, true)
+
+		itemCategoryID, err := s.resolveCategoryID(ctx, "hackernews", item.Title, item.Excerpt)
+		if err != nil {
+			result.Error = err
+			return result
+		}
+		if itemCategoryID == nil {
+			itemCategoryID = categoryID
+		}
+
+		changed, err := s.persistItemWithUpgrade(ctx, source.ID, itemCategoryID, item, true)
 		if err != nil {
 			result.Error = err
 			return result

@@ -19,9 +19,13 @@ func NewCategoryRepository(pool *pgxpool.Pool) *CategoryRepository {
 
 func (r *CategoryRepository) List(ctx context.Context) ([]domain.Category, error) {
 	query := `
-		SELECT id, name, slug, description, icon, sort_order, is_learning, created_at
-		FROM categories
-		ORDER BY sort_order ASC, name ASC
+		SELECT c.id, c.name, c.slug, c.description, c.icon, c.sort_order, c.is_learning, c.created_at
+		FROM categories c
+		WHERE EXISTS (
+			SELECT 1 FROM articles a
+			WHERE a.category_id = c.id AND a.status = 'published'
+		)
+		ORDER BY c.sort_order ASC, c.name ASC
 	`
 
 	rows, err := r.pool.Query(ctx, query)

@@ -107,7 +107,7 @@ export function ArticleReader({ article, contentHtml }: ArticleReaderProps) {
         progress={progress}
       />
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-10 sm:px-6 xl:grid-cols-[12rem_minmax(0,1fr)] xl:gap-16">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-3 py-6 sm:gap-10 sm:px-6 sm:py-10 xl:grid-cols-[12rem_minmax(0,1fr)] xl:gap-16">
         <aside className="hidden xl:block">
           <div className="sticky top-20">
             <TableOfContents
@@ -139,18 +139,18 @@ export function ArticleReader({ article, contentHtml }: ArticleReaderProps) {
               )}
             </div>
 
-            <h1 className="font-display text-[clamp(1.9rem,4.5vw,2.75rem)] font-normal leading-[1.15] tracking-tight">
+            <h1 className="font-display text-[clamp(1.55rem,5vw,2.75rem)] font-normal leading-[1.2] tracking-tight sm:leading-[1.15]">
               {article.title}
             </h1>
 
             {article.excerpt && (
-              <p className="font-sans text-[17px] leading-relaxed text-[var(--reader-muted)]">
+              <p className="font-sans text-[15px] leading-relaxed text-[var(--reader-muted)] sm:text-[17px]">
                 {article.excerpt}
               </p>
             )}
           </header>
 
-          <div className="mx-auto max-w-[var(--reader-width)] pb-24">
+          <div className="mx-auto max-w-[var(--reader-width)] pb-16 sm:pb-24">
             {isStubContent && article.canonicalUrl && (
               <div className="mb-8 rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 font-sans text-[14px] leading-relaxed text-[var(--reader-fg)]">
                 Full article text could not be loaded inline.{" "}

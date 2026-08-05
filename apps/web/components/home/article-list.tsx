@@ -61,9 +61,8 @@ export function ArticleListSection({
   title,
   articles,
   subtitle,
-}: ArticleListProps) {
-  if (articles.length === 0) return null;
-
+  emptyMessage,
+}: ArticleListProps & { emptyMessage?: string }) {
   return (
     <section className="space-y-3">
       <div className="mb-1">
@@ -77,11 +76,19 @@ export function ArticleListSection({
         )}
       </div>
 
-      <div className="divide-y divide-white/[0.05]">
-        {articles.map((article) => (
-          <ArticleRow key={article.id} article={article} />
-        ))}
-      </div>
+      {articles.length === 0 ? (
+        emptyMessage ? (
+          <p className="rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-6 text-[14px] leading-relaxed text-muted-foreground">
+            {emptyMessage}
+          </p>
+        ) : null
+      ) : (
+        <div className="divide-y divide-white/[0.05]">
+          {articles.map((article) => (
+            <ArticleRow key={article.id} article={article} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

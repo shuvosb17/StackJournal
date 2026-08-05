@@ -16,7 +16,7 @@ export default async function CategoriesPage() {
   const browse = categories.filter((c) => !c.isLearning);
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-14">
+    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
       <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
         Topics
       </p>

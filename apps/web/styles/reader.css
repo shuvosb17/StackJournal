@@ -2,7 +2,6 @@
   --reader-font-size: 19px;
   --reader-line-height: 1.85;
   --reader-width: 40rem;
-  /* Soft charcoal — lower glare than pure black */
   --reader-bg: oklch(0.145 0.006 75);
   --reader-fg: oklch(0.9 0.004 85);
   --reader-muted: oklch(0.64 0.01 80);
@@ -10,16 +9,66 @@
   --reader-code-bg: oklch(0.175 0.007 75);
   --reader-quote-border: oklch(0.72 0.01 80);
   --reader-link: oklch(0.88 0.01 85);
+  --reader-glow-a: oklch(0.3 0.012 80 / 0.45);
+  --reader-glow-b: oklch(0.22 0.01 70 / 0.35);
+  --reader-glow-c: oklch(0.2 0.008 90 / 0.28);
 
-  background:
+  position: relative;
+  isolation: isolate;
+  color: var(--reader-fg);
+  min-height: 100dvh;
+  background: var(--reader-bg);
+}
+
+/* Fixed ambient layer — persists for entire scroll */
+.reader-surface::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--reader-bg);
+  background-image:
     radial-gradient(
-      ellipse 80% 40% at 50% 0%,
-      oklch(0.24 0.01 80 / 0.35),
+      ellipse 90% 55% at 50% -15%,
+      var(--reader-glow-a),
       transparent 70%
     ),
-    var(--reader-bg);
-  color: var(--reader-fg);
-  min-height: 100vh;
+    radial-gradient(
+      ellipse 50% 40% at 100% 80%,
+      var(--reader-glow-b),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 45% 35% at 0% 70%,
+      var(--reader-glow-c),
+      transparent 60%
+    );
+  background-attachment: fixed;
+}
+
+.reader-surface::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.reader-surface[data-theme="warm"] {
+  --reader-bg: oklch(0.16 0.012 72);
+  --reader-fg: oklch(0.91 0.008 82);
+  --reader-muted: oklch(0.66 0.014 78);
+  --reader-border: oklch(1 0 0 / 8%);
+  --reader-code-bg: oklch(0.19 0.012 72);
+  --reader-quote-border: oklch(0.74 0.02 75);
+  --reader-link: oklch(0.89 0.015 82);
+  --reader-glow-a: oklch(0.34 0.022 68 / 0.5);
+  --reader-glow-b: oklch(0.26 0.018 55 / 0.38);
+  --reader-glow-c: oklch(0.24 0.015 85 / 0.32);
 }
 
 .reader-surface[data-theme="light"] {
@@ -30,7 +79,9 @@
   --reader-code-bg: oklch(0.96 0.006 85);
   --reader-quote-border: oklch(0.45 0.02 75);
   --reader-link: oklch(0.35 0.02 75);
-  background: var(--reader-bg);
+  --reader-glow-a: oklch(0.92 0.02 85 / 0.8);
+  --reader-glow-b: oklch(0.88 0.015 80 / 0.5);
+  --reader-glow-c: oklch(0.9 0.01 90 / 0.45);
 }
 
 .reader-surface[data-theme="oled"] {
@@ -41,7 +92,9 @@
   --reader-code-bg: #0e0e0e;
   --reader-quote-border: #a3a3a3;
   --reader-link: #f0f0f0;
-  background: var(--reader-bg);
+  --reader-glow-a: oklch(0.18 0.01 80 / 0.35);
+  --reader-glow-b: oklch(0.12 0.008 75 / 0.25);
+  --reader-glow-c: oklch(0.14 0.008 90 / 0.2);
 }
 
 .reader-surface[data-theme="sepia"] {
@@ -52,13 +105,25 @@
   --reader-code-bg: #ebe2d0;
   --reader-quote-border: #8b7355;
   --reader-link: #4a3f32;
-  background: var(--reader-bg);
+  --reader-glow-a: rgb(139 115 85 / 0.12);
+  --reader-glow-b: rgb(180 150 110 / 0.1);
+  --reader-glow-c: rgb(160 130 95 / 0.08);
 }
 
 .reader-surface[data-font-size="sm"] { --reader-font-size: 17px; }
 .reader-surface[data-font-size="md"] { --reader-font-size: 19px; }
 .reader-surface[data-font-size="lg"] { --reader-font-size: 21px; }
 .reader-surface[data-font-size="xl"] { --reader-font-size: 23px; }
+
+@media (max-width: 640px) {
+  .reader-surface {
+    --reader-font-size: 17px;
+    --reader-width: 100%;
+  }
+
+  .reader-surface[data-font-size="lg"] { --reader-font-size: 18px; }
+  .reader-surface[data-font-size="xl"] { --reader-font-size: 19px; }
+}
 
 .reader-surface[data-line-height="compact"] { --reader-line-height: 1.65; }
 .reader-surface[data-line-height="normal"] { --reader-line-height: 1.85; }
@@ -68,6 +133,14 @@
 .reader-surface[data-width="default"] { --reader-width: 40rem; }
 .reader-surface[data-width="wide"] { --reader-width: 48rem; }
 
+@media (max-width: 640px) {
+  .reader-surface[data-width="narrow"],
+  .reader-surface[data-width="default"],
+  .reader-surface[data-width="wide"] {
+    --reader-width: 100%;
+  }
+}
+
 .reader-body {
   max-width: var(--reader-width);
   font-family: var(--font-serif), Georgia, "Times New Roman", serif;
@@ -76,6 +149,7 @@
   color: var(--reader-fg);
   font-optical-sizing: auto;
   letter-spacing: 0.005em;
+  overflow-wrap: anywhere;
 }
 
 .reader-body h2,
@@ -99,18 +173,29 @@
 }
 
 .reader-body h2 {
-  font-size: 1.55em;
+  font-size: 1.45em;
   margin-top: 2.15em;
   padding-top: 0.35em;
 }
 
+@media (min-width: 640px) {
+  .reader-body h2 {
+    font-size: 1.55em;
+  }
+}
+
 .reader-body h3 {
-  font-size: 1.28em;
+  font-size: 1.22em;
   margin-top: 1.85em;
 }
 
+@media (min-width: 640px) {
+  .reader-body h3 {
+    font-size: 1.28em;
+  }
+}
+
 .reader-body p {
-  /* Soften pure white — reduces eye fatigue on long reads */
   color: color-mix(in oklch, var(--reader-fg) 88%, transparent);
 }
 
@@ -174,12 +259,20 @@
 
 .reader-body .code-block pre {
   margin: 0;
-  padding: 1.25rem 1rem;
+  padding: 1rem 0.875rem;
   overflow-x: auto;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.84em;
+  font-size: 0.8em;
   line-height: 1.7;
   background: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 640px) {
+  .reader-body .code-block pre {
+    padding: 1.25rem 1rem;
+    font-size: 0.84em;
+  }
 }
 
 .reader-body .code-block code {
