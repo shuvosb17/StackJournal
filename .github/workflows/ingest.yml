@@ -2,7 +2,7 @@ name: Ingest Articles
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 0 * * *"   # 00:00 UTC = 06:00 Asia/Dhaka
   workflow_dispatch:
 
 jobs:

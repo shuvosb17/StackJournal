@@ -27,7 +27,7 @@ Open **http://localhost:3000**
 
 ## Ingestion
 
-Runs every 30 min via GitHub Actions, or manually:
+Runs daily at 6 AM Bangladesh time via GitHub Actions, or manually:
 
 ```bash
 go run ./cmd/ingest              # all RSS feeds + Hacker News
