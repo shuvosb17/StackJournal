@@ -1,0 +1,132 @@
+@import "./reader.css";
+
+.case-study-body {
+  --reader-font-size: 17px;
+  --reader-width: 42rem;
+  --reader-bg: oklch(0.145 0.006 75);
+  --reader-fg: oklch(0.9 0.004 85);
+  --reader-muted: oklch(0.64 0.01 80);
+  --reader-border: oklch(1 0 0 / 7%);
+  --reader-link: oklch(0.88 0.01 85);
+}
+
+.case-study-body .cs-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1.75em 0;
+  border: 1px solid var(--reader-border);
+  border-radius: 1rem;
+  overflow: hidden;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.88em;
+}
+
+.case-study-body .cs-flow-step {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--reader-border);
+  background: color-mix(in oklch, var(--reader-fg) 3%, transparent);
+}
+
+.case-study-body .cs-flow-step:last-child {
+  border-bottom: none;
+}
+
+.case-study-body .cs-flow-num {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--reader-fg) 12%, transparent);
+  color: var(--reader-fg);
+  font-size: 0.78em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.case-study-body .cs-flow-step strong {
+  display: block;
+  font-weight: 600;
+  color: var(--reader-fg);
+  margin-bottom: 0.25em;
+}
+
+.case-study-body .cs-flow-step p {
+  margin: 0;
+  font-size: 0.95em;
+  line-height: 1.55;
+  color: var(--reader-muted);
+}
+
+.case-study-body .cs-table-wrap {
+  overflow-x: auto;
+  margin: 1.5em 0;
+  border: 1px solid var(--reader-border);
+  border-radius: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.case-study-body table.cs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.86em;
+}
+
+.case-study-body .cs-table th,
+.case-study-body .cs-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--reader-border);
+  vertical-align: top;
+}
+
+.case-study-body .cs-table th {
+  font-weight: 600;
+  color: var(--reader-fg);
+  background: color-mix(in oklch, var(--reader-fg) 5%, transparent);
+}
+
+.case-study-body .cs-table tr:last-child td {
+  border-bottom: none;
+}
+
+.case-study-body .cs-table td {
+  color: color-mix(in oklch, var(--reader-fg) 82%, transparent);
+}
+
+.case-study-body .cs-callout {
+  margin: 1.5em 0;
+  padding: 1rem 1.25rem;
+  border-radius: 0.875rem;
+  border: 1px solid var(--reader-border);
+  background: color-mix(in oklch, var(--reader-fg) 4%, transparent);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9em;
+}
+
+.case-study-body .cs-callout strong {
+  color: var(--reader-fg);
+}
+
+.case-study-body .cs-related {
+  margin-top: 2.5em;
+  padding-top: 1.5em;
+  border-top: 1px solid var(--reader-border);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9em;
+}
+
+.case-study-body .cs-related ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.case-study-body .cs-related li + li {
+  margin-top: 0.5em;
+}

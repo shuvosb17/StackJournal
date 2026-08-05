@@ -37,6 +37,7 @@ type CaseStudy struct {
 	Scaling      *string    `json:"scaling,omitempty"`
 	Tradeoffs    *string    `json:"tradeoffs,omitempty"`
 	Lessons      *string    `json:"lessons,omitempty"`
+	ContentHTML  *string    `json:"contentHtml,omitempty"`
 	HeroImage    *string    `json:"heroImage,omitempty"`
 	PublishedAt  *time.Time `json:"publishedAt,omitempty"`
 	CreatedAt    time.Time  `json:"createdAt"`

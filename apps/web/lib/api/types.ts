@@ -132,6 +132,7 @@ export type CaseStudy = {
   scaling?: string;
   tradeoffs?: string;
   lessons?: string;
+  contentHtml?: string;
   heroImage?: string;
   publishedAt?: string;
   createdAt: string;

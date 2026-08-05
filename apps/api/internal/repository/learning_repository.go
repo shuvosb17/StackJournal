@@ -122,12 +122,12 @@ func (r *CaseStudyRepository) GetBySlug(ctx context.Context, slug string) (*doma
 		SELECT
 			id, title, slug, company, overview, problem, requirements,
 			architecture, data_flow, scaling, tradeoffs, lessons,
-			hero_image, published_at, created_at
+			content_html, hero_image, published_at, created_at
 		FROM case_studies WHERE slug = $1
 	`, slug).Scan(
 		&c.ID, &c.Title, &c.Slug, &c.Company, &c.Overview, &c.Problem, &c.Requirements,
 		&c.Architecture, &c.DataFlow, &c.Scaling, &c.Tradeoffs, &c.Lessons,
-		&c.HeroImage, &c.PublishedAt, &c.CreatedAt,
+		&c.ContentHTML, &c.HeroImage, &c.PublishedAt, &c.CreatedAt,
 	)
 	if err != nil {
 		return nil, err
