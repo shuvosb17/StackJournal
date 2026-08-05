@@ -139,7 +139,7 @@ CREATE TABLE case_studies (
     scaling TEXT,
     tradeoffs TEXT,
     lessons TEXT,
-    references JSONB DEFAULT '[]'::jsonb,
+    "references" JSONB DEFAULT '[]'::jsonb,
     hero_image TEXT,
     published_at TIMESTAMPTZ,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -161,6 +161,7 @@ CREATE INDEX idx_articles_source_id ON articles (source_id);
 CREATE INDEX idx_articles_search_vector ON articles USING GIN (search_vector);
 CREATE INDEX idx_reading_history_user_last_read ON reading_history (user_id, last_read_at DESC);
 
+-- +goose StatementBegin
 CREATE OR REPLACE FUNCTION articles_search_vector_update() RETURNS trigger AS $$
 BEGIN
     NEW.search_vector :=
@@ -174,10 +175,13 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER articles_search_vector_trigger
     BEFORE INSERT OR UPDATE OF title, excerpt, content_text ON articles
     FOR EACH ROW EXECUTE FUNCTION articles_search_vector_update();
+-- +goose StatementEnd
 
 -- +goose Down
+-- +goose StatementBegin
 DROP TRIGGER IF EXISTS articles_search_vector_trigger ON articles;
 DROP FUNCTION IF EXISTS articles_search_vector_update();
+-- +goose StatementEnd
 DROP TABLE IF EXISTS ingest_runs;
 DROP TABLE IF EXISTS case_studies;
 DROP TABLE IF EXISTS learning_path_steps;
