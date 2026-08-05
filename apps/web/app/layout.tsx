@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
+import { Geist_Mono, Instrument_Serif, Manrope, Source_Serif_4 } from "next/font/google";
 
 import { AppSearchShell } from "@/components/search/app-search-shell";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-ui",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 const sourceSerif = Source_Serif_4({
@@ -38,9 +45,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} dark h-full antialiased`}
+      className={`${manrope.variable} ${geistMono.variable} ${instrumentSerif.variable} ${sourceSerif.variable} dark h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col font-sans">
+      <body className="relative flex min-h-full flex-col font-sans">
         <AppSearchShell>{children}</AppSearchShell>
       </body>
     </html>

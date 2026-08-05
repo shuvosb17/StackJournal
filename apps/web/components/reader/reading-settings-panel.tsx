@@ -42,10 +42,10 @@ function OptionGroup<T extends string>({
             type="button"
             onClick={() => onChange(opt.value)}
             className={cn(
-              "rounded-lg border px-3 py-1.5 text-[13px] transition-colors",
+              "rounded-full border px-3.5 py-1.5 text-[13px] transition-all duration-300 ease-smooth",
               value === opt.value
-                ? "border-primary/40 bg-primary/10 text-foreground"
-                : "border-border/60 text-muted-foreground hover:text-foreground",
+                ? "border-transparent bg-primary text-primary-foreground"
+                : "border-white/[0.1] text-muted-foreground hover:border-white/[0.16] hover:text-foreground",
             )}
           >
             {opt.label}

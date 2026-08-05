@@ -123,7 +123,7 @@ export function ArticleReader({ article, contentHtml }: ArticleReaderProps) {
               )}
             </div>
 
-            <h1 className="text-[clamp(1.75rem,4vw,2.5rem)] font-medium leading-tight tracking-tight">
+            <h1 className="font-display text-[clamp(1.9rem,4.5vw,2.75rem)] font-normal leading-[1.15] tracking-tight">
               {article.title}
             </h1>
 

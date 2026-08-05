@@ -46,13 +46,21 @@ export function ContinueReadingSection() {
 
 export function DailySetupBanner() {
   return (
-    <div className="rounded-xl border border-border/50 bg-muted/20 px-4 py-3 text-[13px] text-muted-foreground">
+    <div className="surface-soft rounded-2xl px-5 py-4 text-[13px] leading-relaxed text-muted-foreground">
       <p>
         For live articles, run the API + ingest:{" "}
-        <code className="rounded bg-muted px-1 py-0.5">go run ./cmd/server</code> then{" "}
-        <code className="rounded bg-muted px-1 py-0.5">go run ./cmd/ingest</code>
+        <code className="rounded-md bg-white/[0.06] px-1.5 py-0.5 text-foreground/80">
+          go run ./cmd/server
+        </code>{" "}
+        then{" "}
+        <code className="rounded-md bg-white/[0.06] px-1.5 py-0.5 text-foreground/80">
+          go run ./cmd/ingest
+        </code>
       </p>
-      <Link href="/learning" className="mt-2 inline-block text-primary hover:underline">
+      <Link
+        href="/learning"
+        className="mt-3 inline-flex items-center text-foreground/90 transition-opacity duration-300 hover:opacity-70"
+      >
         Explore learning paths →
       </Link>
     </div>

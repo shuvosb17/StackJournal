@@ -146,7 +146,7 @@ export function SearchDialog() {
     <Dialog open={open} onOpenChange={(next) => !next && closeSearch()}>
       <DialogContent
         showCloseButton={false}
-        className="top-[18%] max-h-[min(70vh,560px)] translate-y-0 gap-0 overflow-hidden p-0 sm:max-w-xl"
+        className="top-[18%] max-h-[min(70vh,560px)] translate-y-0 gap-0 overflow-hidden rounded-2xl border-white/[0.08] bg-popover/95 p-0 shadow-2xl backdrop-blur-2xl sm:max-w-xl"
       >
         <DialogTitle className="sr-only">Search StackJournal</DialogTitle>
         <DialogDescription className="sr-only">
@@ -198,10 +198,10 @@ export function SearchDialog() {
                         onClick={() => navigate(item)}
                         onMouseEnter={() => setSelectedIndex(index)}
                         className={cn(
-                          "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors",
+                          "flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-200 ease-smooth",
                           selectedIndex === index
-                            ? "bg-primary/10 text-foreground"
-                            : "text-foreground/90 hover:bg-muted/50",
+                            ? "bg-white/[0.07] text-foreground"
+                            : "text-foreground/90 hover:bg-white/[0.04]",
                         )}
                       >
                         <Icon

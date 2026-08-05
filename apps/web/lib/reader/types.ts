@@ -18,7 +18,7 @@ export type TocItem = {
 
 export const DEFAULT_READING_SETTINGS: ReadingSettings = {
   fontSize: "md",
-  lineHeight: "normal",
+  lineHeight: "relaxed",
   width: "default",
   theme: "dark",
 };

@@ -12,7 +12,7 @@ export function CategoryStrip({ categories }: CategoryStripProps) {
 
   return (
     <section>
-      <h2 className="mb-4 text-[13px] font-medium uppercase tracking-widest text-muted-foreground">
+      <h2 className="mb-4 text-[12px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
         Browse
       </h2>
 
@@ -22,9 +22,9 @@ export function CategoryStrip({ categories }: CategoryStripProps) {
             key={category.id}
             href={`/categories/${category.slug}`}
             className={cn(
-              "rounded-full border border-border/50 px-3.5 py-1.5 text-[13px] text-muted-foreground transition-all",
-              "hover:border-primary/30 hover:bg-primary/5 hover:text-foreground",
-              category.isLearning && "border-primary/20 text-foreground/80",
+              "rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[13px] text-muted-foreground transition-all duration-300 ease-smooth",
+              "hover:border-white/[0.16] hover:bg-white/[0.08] hover:text-foreground",
+              category.isLearning && "border-white/[0.14] text-foreground/85",
             )}
           >
             {category.name}

@@ -33,23 +33,23 @@ export function ReaderToolbar({
   const { openSearch } = useSearch();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/30 bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-background/55 backdrop-blur-2xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:px-6">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[13px] text-muted-foreground transition-all duration-300 ease-smooth hover:bg-white/[0.05] hover:text-foreground"
         >
           <ArrowLeft className="size-3.5" strokeWidth={1.75} />
           <span className="hidden sm:inline">Back</span>
         </Link>
 
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[13px] font-medium text-foreground/90">
+          <p className="truncate text-[13px] font-medium text-foreground/85">
             {title}
           </p>
-          <div className="mt-1 h-0.5 overflow-hidden rounded-full bg-muted/60">
+          <div className="mt-1.5 h-0.5 overflow-hidden rounded-full bg-white/[0.08]">
             <div
-              className="h-full rounded-full bg-primary transition-all duration-150"
+              className="h-full rounded-full bg-foreground/55 transition-all duration-150"
               style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
             />
           </div>

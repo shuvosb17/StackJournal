@@ -43,11 +43,13 @@ export function BookmarksList() {
 
   if (articles.length === 0) {
     return (
-      <div className="mt-10 rounded-xl border border-dashed border-border/60 px-6 py-12 text-center">
+      <div className="mt-10 surface-soft rounded-2xl px-6 py-14 text-center">
         <Bookmark className="mx-auto size-8 text-muted-foreground/50" strokeWidth={1.5} />
-        <p className="mt-4 text-[15px] text-muted-foreground">
+        <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
           No bookmarks yet. Press{" "}
-          <kbd className="rounded border px-1.5 py-0.5 font-mono text-[12px]">B</kbd>{" "}
+          <kbd className="rounded-md border border-white/[0.1] px-1.5 py-0.5 font-mono text-[12px]">
+            B
+          </kbd>{" "}
           while reading to save an article.
         </p>
       </div>
@@ -55,7 +57,7 @@ export function BookmarksList() {
   }
 
   return (
-    <div className="mt-8 divide-y divide-border/40">
+    <div className="mt-8 divide-y divide-white/[0.05]">
       {articles.map((article) => (
         <ArticleRow key={article.id} article={article} />
       ))}
@@ -65,15 +67,18 @@ export function BookmarksList() {
 
 export function BookmarksPageShell() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
-      <h1 className="text-2xl font-semibold tracking-tight">Bookmarks</h1>
-      <p className="mt-2 text-[15px] text-muted-foreground">
+    <div className="mx-auto max-w-5xl px-6 py-14">
+      <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+        Saved
+      </p>
+      <h1 className="mt-3 font-display text-[2.5rem] tracking-tight">Bookmarks</h1>
+      <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
         Saved locally in your browser — no account needed.
       </p>
       <BookmarksList />
       <Link
         href="/"
-        className="mt-10 inline-flex items-center gap-2 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+        className="mt-12 inline-flex items-center gap-2 text-[13px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
       >
         <ArrowLeft className="size-3.5" strokeWidth={1.75} />
         Back home

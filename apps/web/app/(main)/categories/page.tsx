@@ -16,14 +16,19 @@ export default async function CategoriesPage() {
   const browse = categories.filter((c) => !c.isLearning);
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
-      <h1 className="text-2xl font-semibold tracking-tight">Categories</h1>
-      <p className="mt-2 text-[15px] text-muted-foreground">
+    <div className="mx-auto max-w-5xl px-6 py-14">
+      <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+        Topics
+      </p>
+      <h1 className="mt-3 font-display text-[2.5rem] tracking-tight">
+        Categories
+      </h1>
+      <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
         Browse articles by topic.
       </p>
 
-      <section className="mt-10">
-        <h2 className="mb-4 text-[13px] font-medium uppercase tracking-widest text-muted-foreground">
+      <section className="mt-12">
+        <h2 className="mb-4 text-[12px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
           Learning
         </h2>
         <div className="grid gap-2 sm:grid-cols-2">
@@ -34,8 +39,8 @@ export default async function CategoriesPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="mb-4 text-[13px] font-medium uppercase tracking-widest text-muted-foreground">
-          Topics
+        <h2 className="mb-4 text-[12px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+          Browse
         </h2>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {browse.map((cat) => (
@@ -44,11 +49,17 @@ export default async function CategoriesPage() {
         </div>
       </section>
 
-      <div className="mt-12 flex gap-4 text-[13px]">
-        <Link href="/learning" className="text-primary hover:underline">
+      <div className="mt-14 flex gap-6 text-[13px] text-muted-foreground">
+        <Link
+          href="/learning"
+          className="transition-colors duration-300 hover:text-foreground"
+        >
           Learning paths →
         </Link>
-        <Link href="/case-studies" className="text-primary hover:underline">
+        <Link
+          href="/case-studies"
+          className="transition-colors duration-300 hover:text-foreground"
+        >
           Case studies →
         </Link>
       </div>
@@ -69,8 +80,8 @@ function CategoryLink({
     <Link
       href={`/categories/${slug}`}
       className={cn(
-        "rounded-xl border border-border/50 px-4 py-3 text-[14px] transition-colors hover:border-border hover:bg-muted/30",
-        learning && "border-primary/20",
+        "rounded-2xl border border-white/[0.08] bg-white/[0.02] px-4 py-3.5 text-[14px] transition-all duration-300 ease-smooth hover:border-white/[0.14] hover:bg-white/[0.06]",
+        learning && "border-white/[0.12]",
       )}
     >
       {name}
