@@ -56,7 +56,15 @@ export function ArticleReader({ article, contentHtml }: ArticleReaderProps) {
       const headerOffset = 72;
       const top =
         window.scrollY + el.getBoundingClientRect().top - headerOffset;
-      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const isTouch =
+        window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+      window.scrollTo({
+        top: Math.max(0, top),
+        behavior: prefersReducedMotion || isTouch ? "auto" : "smooth",
+      });
       setActiveId(id);
     },
     [contentRef],

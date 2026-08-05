@@ -33,7 +33,7 @@ export function ReaderToolbar({
   const { openSearch } = useSearch();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-background/55 backdrop-blur-2xl">
+    <header className="header-glass sticky top-0 z-50 border-b border-white/[0.06]">
       <div className="mx-auto flex min-h-14 max-w-6xl items-center gap-2 px-3 py-2 sm:h-14 sm:gap-3 sm:px-6">
         <Link
           href="/"
@@ -49,8 +49,10 @@ export function ReaderToolbar({
           </p>
           <div className="mt-1.5 h-0.5 overflow-hidden rounded-full bg-white/[0.08]">
             <div
-              className="h-full rounded-full bg-foreground/55 transition-all duration-150"
-              style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
+              className="h-full w-full origin-left rounded-full bg-foreground/55 will-change-transform max-md:transition-none md:transition-transform md:duration-150"
+              style={{
+                transform: `scaleX(${Math.min(100, Math.max(0, progress)) / 100})`,
+              }}
             />
           </div>
         </div>

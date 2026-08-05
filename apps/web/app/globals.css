@@ -115,8 +115,15 @@
   }
 
   html {
-    @apply font-sans scroll-smooth;
+    @apply font-sans;
     color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
@@ -140,6 +147,9 @@
       );
     background-attachment: fixed;
     min-height: 100%;
+    overflow-x: clip;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
   }
 
   /* Soft film grain — reduces flat harshness without glare */
@@ -152,6 +162,32 @@
     opacity: 0.03;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Mobile: drop fixed layers that cause iOS scroll jank */
+  @media (hover: none) and (pointer: coarse) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    body {
+      background-attachment: scroll;
+      background-image:
+        radial-gradient(
+          ellipse 120% 80% at 50% -20%,
+          oklch(0.3 0.012 80 / 0.35),
+          transparent 72%
+        ),
+        radial-gradient(
+          ellipse 80% 50% at 100% 100%,
+          oklch(0.22 0.01 70 / 0.22),
+          transparent 70%
+        );
+    }
+
+    body::before {
+      display: none;
+    }
   }
 
   ::selection {
@@ -180,5 +216,19 @@
 
   .ease-smooth {
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .header-glass {
+    background: color-mix(in oklch, var(--background) 55%, transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .header-glass {
+      background: color-mix(in oklch, var(--background) 94%, transparent);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
   }
 }
